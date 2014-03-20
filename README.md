@@ -20,8 +20,9 @@ SCS playground is a simple framework with guard which can build the slim/coffees
 ### Play
 
 1. Run "guard".
-2. Write your slim, coffeescript and sass files in src folder.
-3. Guard would build the html, javascript and css files in app folder automatically.
+2. Run "all" in guard to generate the default files if you want to give it a try.
+3. Write your slim, coffeescript and sass files in src folder.
+4. Guard would build the html, javascript and css files in app folder automatically.
 
 ## Folders
 
