@@ -1,2 +1,108 @@
-.red-text
-  color: #f00
+@import "compass"
+@import "compass/css3"
+
+$c_border: #999
+$c_shadow: #aaa
+$c_bg: #fff
+$b_w: 1px
+
+$c_player1: #f55
+$c_player2: #55f
+
+$gp_bw: 2px
+$gp_block_s: 90px
+$gp_block_p: 0px
+$gp_mark_s: $gp_block_s - $gp_block_p*2
+
+.clearfix
+  clear: both
+
+body
+  text-align: center
+
+@mixin square-img($path, $size)
+  background: url($path) no-repeat scroll 0 0 rgba(0, 0, 0, 0)
+  background-size: $size $size
+  width: $size
+  height: $size
+
+.game-panel
+  display: inline
+  text-align: center
+  .gp-title
+    font-size: 4em
+    padding-bottom: 20px
+  .gp-board
+    display: inline-block
+    padding: 8px
+    border: $b_w solid $c_border
+    @include box-shadow($c_shadow 1px 1px 3px)
+    @include border-radius(5px)
+  .gp-cell
+    float: left
+  .gp-block
+    width: $gp_block_s
+    height: $gp_block_s
+    border: $gp_bw solid $c_border
+    padding: $gp_block_p
+    cursor: pointer
+  .gp-block-left
+    border-left: $gp_bw solid $c_bg
+  .gp-block-right
+    border-right: $gp_bw solid $c_bg
+  .gp-block-top
+    border-top: $gp_bw solid $c_bg
+  .gp-block-bottom
+    border-bottom: $gp_bw solid $c_bg
+  .gp-mark-o-1
+    @include square-img("../images/o_1.svg", $gp_mark_s)
+  .gp-mark-o-2
+    @include square-img("../images/o_2.svg", $gp_mark_s)
+  .gp-mark-x-1
+    @include square-img("../images/x_1.svg", $gp_mark_s)
+  .gp-mark-x-2
+    @include square-img("../images/x_2.svg", $gp_mark_s)
+  .gp-current-player
+    display: inline-block
+
+@mixin player-dock($c_player)
+  position: fixed
+  margin: 8px
+  border: $b_w solid $c_border
+  @include box-shadow($c_shadow 1px 1px 3px)
+  @include border-radius(5px)
+  .player-title
+    margin: 8px 0px
+    padding: 6px
+    color: #fff
+    background: $c_player
+  .player-name
+    font-size: 2em
+    margin: 0px 12px 8px
+    color: $c_player
+
+
+.player-dock-right
+  @include player-dock($c_player1)
+  top: 0px
+  left: 0px
+
+.player-dock-left
+  @include player-dock($c_player2)
+  top: 0px
+  right: 0px
+
+.middle-list
+  .ml-table
+    display: table
+  .ml-cell
+    display: table-cell
+    vertical-align: middle
+
+.btn
+  padding: 8px
+  font-size: 1.2em
+  border: 1px solid $c_border
+  background: #fff
+  @include box-shadow($c_shadow 1px 1px 3px)
+  @include border-radius(5px)

@@ -2,8 +2,44 @@ doctype html
 html
   head
     link href="../css/app.css" rel="stylesheet"
+    //script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js" type="text/javascript"
+    script src="../js/angular.min.js"
     script src="../js/app.js"
-  body
-    h1 scs-playground example
-    .red-text A css test
-    #time_display
+  body ng-app="oxGameApp"
+    div ng-controller="oxGameCtrl"
+      .player-dock-right
+        .player-title
+          | Player 1
+        .player-name
+          | {{player1_name}}
+      .player-dock-left
+        .player-title
+          | Player 2
+        .player-name
+          | {{player2_name}}
+      .game-panel
+        .gp-title
+          | OOXX-Game
+        .gp-start-panel ng-show="game_state == 'init'"
+          button.btn ng-click="startGame()"
+            | Start
+        .gp-current-player ng-show="game_state == 'playing'"
+          .middle-list
+            .ml-table
+              .ml-cell
+                | Next >>
+              .ml-cell
+                div class="{{getMarkCss(turnWho())}}"
+              .ml-cell.gp-curent-name
+                | {{getCurrentName()}}
+        br
+        .gp-board ng-show="game_state == 'playing' || game_state == 'finish'"
+          .gp-win ng-show="game_state == 'finish'"
+          .gp-row ng-repeat="(index, x) in board_clicks"
+            .gp-cell ng-repeat="(index, y) in x track by $index"
+              div class="gp-block {{getBlockBorderCss($parent.index, index)}}" ng-click="$parent.$parent.blockClick($parent.index, index)"
+                div class="{{$parent.$parent.getMarkCss($parent.index, index)}}"
+            .clearfix
+        .gp-replay-panel ng-show="game_state == 'finish'"
+          button.btn ng-click="resetGame()"
+            | Replay
