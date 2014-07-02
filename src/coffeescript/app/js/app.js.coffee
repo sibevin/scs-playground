@@ -24,6 +24,9 @@ ox_game_app.controller "oxGameCtrl", [
     showWin = ->
       $scope.game_state = 'finish'
 
+    showEven = ->
+      $scope.game_state = 'even'
+
     $scope.startGame = () ->
       $scope.game_state = 'playing'
 
@@ -42,6 +45,9 @@ ox_game_app.controller "oxGameCtrl", [
         if ((x == y) || (x + y == BOARD_SIZE - 1)) && checkDiagonalLine(x, y)
           showWin()
           return
+      if round == (BOARD_SIZE * BOARD_SIZE)
+        showEven()
+        return
       round = round + 1
 
     $scope.turnWho = ->
@@ -50,7 +56,7 @@ ox_game_app.controller "oxGameCtrl", [
     $scope.turnMark = ->
       (round % 2)
 
-    $scope.getCrurrentName = ->
+    $scope.getCurrentName = ->
       if $scope.turnWho() == 1
         return $scope.player1_name
       else
@@ -69,6 +75,12 @@ ox_game_app.controller "oxGameCtrl", [
       if y == (BOARD_SIZE - 1)
         css_str = css_str + " gp-block-right"
       return css_str
+
+    $scope.getPlayerColorCss = ->
+      if $scope.turnWho() == 1
+        return "gp-color-player1"
+      else
+        return "gp-color-player2"
 
     $scope.getMarkCss = (x, y = undefined) ->
       if y == undefined

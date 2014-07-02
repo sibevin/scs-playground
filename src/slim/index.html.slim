@@ -31,15 +31,20 @@ html
               .ml-cell
                 div class="{{getMarkCss(turnWho())}}"
               .ml-cell.gp-curent-name
-                | {{getCurrentName()}}
+                div class="{{getPlayerColorCss()}}"
+                  | {{getCurrentName()}}
+        div ng-show="game_state == 'finish'" class="gp-win {{getPlayerColorCss()}}"
+          | {{getCurrentName()}} win!!
+        .gp-win ng-show="game_state == 'even'"
+          | Nobody win!!
         br
-        .gp-board ng-show="game_state == 'playing' || game_state == 'finish'"
-          .gp-win ng-show="game_state == 'finish'"
+        .gp-replay-panel ng-show="game_state == 'finish' || game_state == 'even'"
+          button.btn ng-click="resetGame()"
+            | Replay
+        br
+        .gp-board ng-show="game_state == 'playing' || game_state == 'finish' || game_state == 'even'"
           .gp-row ng-repeat="(index, x) in board_clicks"
             .gp-cell ng-repeat="(index, y) in x track by $index"
               div class="gp-block {{getBlockBorderCss($parent.index, index)}}" ng-click="$parent.$parent.blockClick($parent.index, index)"
                 div class="{{$parent.$parent.getMarkCss($parent.index, index)}}"
             .clearfix
-        .gp-replay-panel ng-show="game_state == 'finish'"
-          button.btn ng-click="resetGame()"
-            | Replay
