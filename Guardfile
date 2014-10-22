@@ -1,6 +1,6 @@
 guard 'slim', slim: { :pretty => true },
               input_root: 'src/slim',
-              output_root: 'app/html' do
+              output_root: 'app/' do
   watch(%r'^.+\.slim$')
 end
 

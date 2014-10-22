@@ -26,12 +26,10 @@ SCS playground is a simple framework with guard which can build the slim/coffees
 
 ## Folders
 
-    ├── app
+    ├── app -- where to generate the html files
     │   ├── css -- where to generate the css files
     │   │   └── app.css
-    │   ├── html -- where to generate the html files
-    │   │   └── index.html
-    │   ├── images
+    │   ├── index.html
     │   └── js -- where to generate the javascript files
     │       └── app.js
     ├── config
@@ -47,7 +45,7 @@ SCS playground is a simple framework with guard which can build the slim/coffees
         │       └── js -- where to put the coffeescript files
         │           └── app.js.coffee
         ├── sass -- where to put sass files
-        │   └── app.css.sass
+        │   └── app.sass
         └── slim -- where to put slim files
             └── index.html.slim
 
@@ -57,4 +55,4 @@ Sibevin Wang
 
 ## Copyright
 
-Copyright (c) 2013 Sibevin Wang. Released under the MIT license.
+Copyright (c) 2014 Sibevin Wang. Released under the MIT license.
