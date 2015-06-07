@@ -6,6 +6,3 @@ end
 
 guard :compass, project_path: 'app/css',
                 configuration_file: 'config/compass.rb'
-
-guard :coffeescript, :input => 'src/coffeescript',
-                     :output => './'
