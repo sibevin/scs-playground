@@ -9,3 +9,10 @@ $c_main_bg: $c_white
   .menu
     background: $c_ll
     border-color: $c_l
+    .mu-btn
+      color: $c_black
+    @each $mu_btn in $mu_btns
+      .mu-btn-#{$mu_btn}
+        color: $c_l
+        &:hover, &.active
+          color: $c_black

@@ -1,8 +1,29 @@
 @import "modules/globals"
 
+$hd_btns: "menu", "search"
+
 .header
   position: fixed
   bottom: 0px
   left: 0px
   right: 0px
   height: $header_h
+  .hd-btn
+    float: left
+    display: block
+    padding: 6px 0px 6px 6px
+  .hd-trademark
+    float: right
+    display: block
+    padding: 5px 0px
+  @each $hd_btn in $hd_btns
+    .hd-btn-#{$hd_btn}
+      float: left
+      padding: 6px 0px 6px 6px
+      .hd-icon
+        height: 48px
+        width: 48px
+        background: url("/images/header/#{$hd_btn}_48x.svg")
+      &:hover, &.active
+        .hd-icon
+          background: url("/images/header/#{$hd_btn}_d_48x.svg")

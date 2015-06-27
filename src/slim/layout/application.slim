@@ -7,6 +7,33 @@ html
     script src="/js/app.js"
   body.theme-color-default
     header.header
+      a.hd-btn-menu href="#"
+        .hd-icon
+      a.hd-btn-search href="#"
+        .hd-icon
+      a.hd-trademark href="#"
+        img src="/images/header/trademark_200x50.svg" alt="魔法師的手杖" title="魔法師的手杖"
     nav.menu
+      ul
+        li
+          a.mu-btn-paper href="#"
+            .mu-icon
+            | 文章
+        li
+          a.mu-btn-category href="#"
+            .mu-icon
+            | 分類
+        li
+          a.mu-btn-tag.active href="#"
+            .mu-icon
+            | 標籤
+        li
+          a.mu-btn-work href="#"
+            .mu-icon
+            | 作品
+        li
+          a.mu-btn-wizard href="#"
+            .mu-icon
+            | 關於
     section.main
       == yield
