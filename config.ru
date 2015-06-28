@@ -22,7 +22,7 @@ end
 
 use Rack::ScsBlog,
   :urls => [""],
-  :root => "app",
+  :root => "build",
   :index => 'index.html'
 
 run lambda { |env|
@@ -32,6 +32,6 @@ run lambda { |env|
       'Content-Type'  => 'text/html',
       'Cache-Control' => 'public, max-age=86400'
     },
-    File.open('app/index.html', File::RDONLY)
+    File.open('build/index.html', File::RDONLY)
   ]
 }

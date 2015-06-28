@@ -1,6 +1,6 @@
 project_type = :stand_alone
-http_path = "app/"
+http_path = "build/"
 sass_dir = "src/sass"
-css_dir = "app/css"
-images_dir = "app/images"
-javascripts_dir = "app/js"
+css_dir = "build/css"
+images_dir = "build/images"
+javascripts_dir = "build/js"

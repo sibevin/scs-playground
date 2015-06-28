@@ -1,5 +1,5 @@
 # outputs
-/app
+build/
 
 # Gemfile.lock
 Gemfile.lock
@@ -9,3 +9,6 @@ Gemfile.lock
 
 # sass cache
 .sass-cache
+
+# temp
+temp/
