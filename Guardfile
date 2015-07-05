@@ -12,6 +12,7 @@ require 'fileutils'
 require 'uglifier'
 
 require './config/routes.rb'
+require './config/meta_defaults.rb'
 
 guard :compass, configuration_file: 'config/compass.rb'
 
@@ -26,6 +27,13 @@ guard 'coffeescript', coffeescript_options do
 end
 
 module ::Guard
+  class PageData
+    attr_accessor :meta
+    def initialize(meta = nil)
+      @meta = meta
+    end
+  end
+
   class RenderSlimGuard < ::Guard::Plugin
     def initialize(options = {})
       @root_path = Pathname.new(File.dirname(__FILE__))
@@ -64,6 +72,8 @@ module ::Guard
       end
       p "layout = #{layout}"
 
+      page_data = PageData.new
+
       return unless File.file?(view_path)
       main_slim = File.read(view_path)
       meta = Hash[
@@ -71,6 +81,7 @@ module ::Guard
           keep_if { |l| l.match(/^\.meta-data/) }.
           map { |l| l.gsub(/\.meta-data\ /,'').gsub(/"/,'').strip.split("=") }
       ]
+      page_data.meta = $meta_defaults.merge(meta)
       p "meta = #{meta}"
       layout_slim = File.read(layout)
 
@@ -83,7 +94,7 @@ module ::Guard
         template_html = Slim::Template.new{ template_slim }
         main_html = template_html.render { main_html }
       end
-      page_html = layout_html.render { main_html }
+      page_html = layout_html.render(page_data) { main_html }
 
       output_path = "build#{route_data[:path]}.html"
       p "output_path = #{output_path}"

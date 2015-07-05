@@ -2,7 +2,13 @@ doctype html
 html
   head
     meta charset="utf-8"
-    meta content="width=device-width, initial-scale=1.0" name="viewport"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title
+      | #{@meta["title"]}
+    meta name="description" content="#{@meta["description"]}"
+    meta property="og:title" content="#{@meta["title"]}"
+    meta property="og:description" content="#{@meta["description"]}"
+    meta property="og:site_name" content="#{@meta["site_name"]}"
     link href="/css/application.css" rel="stylesheet"
     script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"
     script src="/js/vendor/angular-tau-utils.min.js"
@@ -39,4 +45,6 @@ html
             | 關於
     section.main
       #time_display
+      p
+        | #{@meta}
       == yield
