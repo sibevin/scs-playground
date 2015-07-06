@@ -1,0 +1,12 @@
+@import "modules/globals"
+
+.layout
+  .menu
+    left: -$menu_main_w - $menu_border_w
+  .main
+    padding-left: $main_p
+  &.lo-menu-open
+    .menu
+      left: 0px
+    .main
+      padding-left: $menu_w + $main_p

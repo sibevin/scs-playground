@@ -1,3 +1,4 @@
-window.setInterval ( ->
-  document.getElementById("time_display").innerHTML = Date()
-), 1000
+blog_app = angular.module('scsBlogApp', ['tau-utils'])
+
+angular.element(document).ready ->
+  angular.bootstrap(document, ['scsBlogApp'])

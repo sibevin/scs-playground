@@ -13,34 +13,34 @@ html
     script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"
     script src="/js/vendor/angular-tau-utils.min.js"
     script src="/js/app.js"
-  body.theme-color-default
+  body.theme-color-default.layout ng-controller="LayoutCtrl" ng-class="{'lo-menu-open':footer_ts.isTab('menu')}"
     header.header
-      a.hd-btn-menu href="#"
+      a.hd-btn-menu href="#" ng-class="{active: footer_ts.isTab('menu')}" ng-click="footer_ts.switch('menu')"
         .hd-icon
-      a.hd-btn-search href="#"
+      a.hd-btn-search href="#" ng-class="{active: footer_ts.isTab('search')}" ng-click="footer_ts.switch('search')"
         .hd-icon
-      a.hd-trademark href="#"
+      a.hd-trademark href="/"
         img src="/images/header/trademark_200x50.svg" alt="魔法師的手杖" title="魔法師的手杖"
     nav.menu
       ul
         li
-          a.mu-btn-paper href="#"
+          a.mu-btn-paper href="#" ng-class="{active: menu_ts.isTab('paper')}" ng-click="menu_ts.setTab('paper')"
             .mu-icon
             | 文章
         li
-          a.mu-btn-category href="#"
+          a.mu-btn-category href="#" ng-class="{active: menu_ts.isTab('category')}" ng-click="menu_ts.setTab('category')"
             .mu-icon
             | 分類
         li
-          a.mu-btn-tag.active href="#"
+          a.mu-btn-tag href="#" ng-class="{active: menu_ts.isTab('tag')}" ng-click="menu_ts.setTab('tag')"
             .mu-icon
             | 標籤
         li
-          a.mu-btn-work href="#"
+          a.mu-btn-work href="#" ng-class="{active: menu_ts.isTab('work')}" ng-click="menu_ts.setTab('work')"
             .mu-icon
             | 作品
         li
-          a.mu-btn-wizard href="#"
+          a.mu-btn-wizard href="#" ng-class="{active: menu_ts.isTab('wizard')}" ng-click="menu_ts.setTab('wizard')"
             .mu-icon
             | 關於
     section.main
