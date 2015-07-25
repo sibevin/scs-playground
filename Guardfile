@@ -81,22 +81,31 @@ module ::Guard
           keep_if { |l| l.match(/^\.meta-data/) }.
           map { |l| l.gsub(/\.meta-data\ /,'').gsub(/"/,'').strip.split("=") }
       ]
+      if meta["tags"] != nil
+        meta["tags"] = meta["tags"].split(",")
+      else
+        meta["tags"] = []
+      end
       page_data.meta = $meta_defaults.merge(meta)
       p "meta = #{meta}"
       layout_slim = File.read(layout)
 
       layout_html = Slim::Template.new{ layout_slim }
-      main_html = Slim::Template.new{ main_slim }.render(self)
+      main_html = Slim::Template.new{ main_slim }.render(page_data)
       if route_data[:template]
         template_path = "src/slim/template/#{route_data[:template]}.slim"
         p "template = #{template_path}"
         template_slim = File.read(template_path)
         template_html = Slim::Template.new{ template_slim }
-        main_html = template_html.render { main_html }
+        main_html = template_html.render(page_data) { main_html }
       end
       page_html = layout_html.render(page_data) { main_html }
 
-      output_path = "build#{route_data[:path]}.html"
+      if route_data[:view].is_a?(Regexp)
+        output_path = "build#{route_data[:path]}#{meta["file"]}.html"
+      else
+        output_path = "build#{route_data[:path]}.html"
+      end
       p "output_path = #{output_path}"
       output_dir = File.dirname(output_path)
       unless File.directory?(output_dir)
@@ -110,11 +119,12 @@ module ::Guard
     end
 
     def render_slim_file(paths = [])
-      p "Some posts are modified."
       paths.each do |path|
         slim_path = path.gsub(/src\/slim\//, '')
         if slim_path =~ /layout\/application.slim/
-          render_all
+          render_multiple_file
+        elsif slim_path =~ /template\/post.slim/
+          render_multiple_file(:post)
         else
           $routes.each do |route_data|
             if route_data[:view].is_a?(String)
@@ -122,7 +132,7 @@ module ::Guard
                 render(route_data, path)
               end
             else route_data[:view].is_a?(Regexp)
-              if route_data[:view].match?(slim_path)
+              if route_data[:view].match(slim_path)
                 render(route_data, path)
               end
             end
@@ -131,16 +141,22 @@ module ::Guard
       end
     end
 
-    def render_all
-      $routes.each do |route_data|
-        if route_data[:view].is_a?(String)
-          render(route_data, "src/slim/#{route_data[:view]}.slim")
-        else route_data[:view].is_a?(Regexp)
-          # TODO: handle the regex path
-          if route_data[:view].match?(slim_path)
-            render(route_data, path)
+    def render_multiple_file(target = :all)
+      if target == :all
+        $routes.each do |route_data|
+          if route_data[:view].is_a?(String)
+            render(route_data, "src/slim/#{route_data[:view]}.slim")
+          else route_data[:view].is_a?(Regexp)
+            # TODO: handle the regex path
+=begin
+            if route_data[:view].match?(slim_path)
+              render(route_data, path)
+            end
+=end
           end
         end
+      elsif target == :post
+        render_slim_file(Dir["#{@root_path}/src/slim/posts/*.slim"])
       end
     end
   end

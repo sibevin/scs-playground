@@ -9,42 +9,63 @@ html
     meta property="og:title" content="#{@meta["title"]}"
     meta property="og:description" content="#{@meta["description"]}"
     meta property="og:site_name" content="#{@meta["site_name"]}"
-    link href="/css/application.css" rel="stylesheet"
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/hybrid.min.css"
+    link rel="stylesheet" href="/css/application.css"
     script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"
+    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-cookies.min.js"
+    script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"
     script src="/js/vendor/angular-tau-utils.min.js"
+    script src="/js/vendor/focusIf.min.js"
     script src="/js/app.js"
+    javascript:
+      hljs.initHighlightingOnLoad();
   body.theme-color-default.layout ng-controller="LayoutCtrl" ng-class="{'lo-menu-open':footer_ts.isTab('menu')}"
+    .main-container
+      section.main
+        == yield
+        p
+          | #{@meta}
     header.header
-      a.hd-btn-menu href="#" ng-class="{active: footer_ts.isTab('menu')}" ng-click="footer_ts.switch('menu')"
-        .hd-icon
-      a.hd-btn-search href="#" ng-class="{active: footer_ts.isTab('search')}" ng-click="footer_ts.switch('search')"
-        .hd-icon
-      a.hd-trademark href="/"
-        img src="/images/header/trademark_200x50.svg" alt="魔法師的手杖" title="魔法師的手杖"
+      table
+        tbody
+          tr
+            td.hd-btn-td
+              a.hd-btn-menu href="#" ng-class="{active: footer_ts.isTab('menu')}" ng-click="switchFooter('menu')"
+                .hd-icon
+            td.hd-btn-td
+              a.hd-btn-search href="#" ng-class="{active: footer_ts.isTab('search')}" ng-click="switchFooter('search')"
+                .hd-icon
+            td.hd-op-td
+              input.hd-input-search ng-model="query_keywords" ng-show="footer_ts.isTab('search')" focus-if="footer_ts.isTab('search')"
+              a.hd-trademark href="/" ng-hide="footer_ts.isTab('search')"
+                img src="/images/header/trademark_200x50.svg" alt="魔法師的手杖" title="魔法師的手杖"
     nav.menu
       ul
         li
-          a.mu-btn-paper href="#" ng-class="{active: menu_ts.isTab('paper')}" ng-click="menu_ts.setTab('paper')"
+          a.mu-btn-paper href="/posts" ng-class="{active: menu_ts.isTab('paper')}" ng-click="switchMenu('paper', false)"
             .mu-icon
             | 文章
         li
-          a.mu-btn-category href="#" ng-class="{active: menu_ts.isTab('category')}" ng-click="menu_ts.setTab('category')"
+          a.mu-btn-category href="/categories" ng-class="{active: menu_ts.isTab('category')}" ng-click="switchMenu('category', false)"
             .mu-icon
             | 分類
         li
-          a.mu-btn-tag href="#" ng-class="{active: menu_ts.isTab('tag')}" ng-click="menu_ts.setTab('tag')"
+          a.mu-btn-tag href="/tags" ng-class="{active: menu_ts.isTab('tag')}" ng-click="switchMenu('tag', false)"
             .mu-icon
             | 標籤
         li
-          a.mu-btn-work href="#" ng-class="{active: menu_ts.isTab('work')}" ng-click="menu_ts.setTab('work')"
+          a.mu-btn-work href="/works" ng-class="{active: menu_ts.isTab('work')}" ng-click="switchMenu('work', false)"
             .mu-icon
             | 作品
         li
-          a.mu-btn-wizard href="#" ng-class="{active: menu_ts.isTab('wizard')}" ng-click="menu_ts.setTab('wizard')"
+          a.mu-btn-wizard href="/about" ng-class="{active: menu_ts.isTab('wizard')}" ng-click="switchMenu('wizard', false)"
             .mu-icon
             | 關於
-    section.main
-      #time_display
-      p
-        | #{@meta}
-      == yield
+    aside.search-result-panel ng-show="footer_ts.isTab('search')"
+      table
+        tbody
+          tr
+            td
+              .srp-icon
+            td
+              .srp-result-area

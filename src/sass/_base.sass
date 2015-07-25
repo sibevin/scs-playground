@@ -1,5 +1,7 @@
 @import "compass/typography/vertical_rhythm"
+@import "compass/css3/border-radius"
 @import "modules/globals"
+@import "modules/header_style"
 
 $base-font-size: $fs_def
 $base-line-height: $lh_def
@@ -8,19 +10,52 @@ body
   font-family: $ff_def
 
 h1
+  +margin-leader(.25)
+  +margin-trailer(.25)
   +adjust-font-size-to($fs_xxl)
+  &:before
+    +header-style($fs_xxl)
 
 h2
-  +adjust-font-size-to($fs_xl)
+  +adjust-font-size-to($fs_l)
+  &:before
+    +header-style($fs_l)
 
 h3, h4, h5, h6
   +adjust-font-size-to($fs_ml)
+  &:before
+    +header-style($fs_ml)
 
 p
   +adjust-font-size-to($fs_def)
 
+pre
+  +margin-leader(.2)
+  +margin-trailer(.2)
+  font-family: monospace
+
+code
+  font-family: monospace
+  +adjust-font-size-to($fs_def)
+  padding: 0.5em
+
+code.hljs
+  display: inline-block
+
+a
+  color: $c_d
+  padding: 0px 3px
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px)
+  code.hljs
+    display: block
+
 .mk-red
-  border: 1px solid red
+  border: 1px solid $c_red
+  +border-radius(3px)
+.mk-blue
+  border: 1px solid $c_blue
+  +border-radius(3px)
 .mkb-red
   border: 1px solid red
   background: hsla(0, 100%, 50%, 0.1)

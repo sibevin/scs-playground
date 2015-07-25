@@ -4,6 +4,10 @@ $routes = [
     view: "views/pages/homepage",
   },
   {
+    path: "/posts",
+    view: "views/pages/posts",
+  },
+  {
     path: "/tags",
     view: "views/pages/tags",
   },
@@ -12,16 +16,22 @@ $routes = [
     view: "views/pages/categories",
   },
   {
+    path: "/works",
+    view: "views/pages/works",
+  },
+  {
+    path: "/about",
+    view: "views/pages/about",
+  },
+  {
     path: "/404",
     view: "views/errors/404",
     template: "error",
   },
-  # /post/2014-06-16-test
-=begin
+  # /posts/2014-06-16-test
   {
-    path: /^\/posts\/.+/,
-    view: /views\/posts\/.+/,
+    path: "/posts/",
+    view: /posts\/.+/,
     template: "post"
   },
-=end
 ]

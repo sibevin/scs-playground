@@ -1,0 +1,19 @@
+.post
+  .title
+    .title-img
+      img src="/images/menu/paper_76x.svg"
+    .title-main
+      .title-text
+        | #{@meta["title"]}
+      .title-info
+        .title-time
+          .time
+            | #{@meta["datetime"]}
+        .title-tcs
+          .category
+            | #{@meta["category"]}
+          - @meta["tags"].each do |tag|
+            .tag
+              | #{tag}
+  .content
+    == yield
